@@ -1,4 +1,4 @@
-from zope.interfaces import implements
+from zope.interface import implements
 
 from AccessControl import ClassSecurityInfo
 from config import ManageProperties
