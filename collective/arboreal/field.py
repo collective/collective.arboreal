@@ -55,9 +55,9 @@ class MultiArborealField(ArborealField, LinesField):
 
     def __init__(self, name, **kwargs):
         """Make sure we get a tree name."""
-        if not kwargs.has_key('tree'):
-            raise KeyError('Arboreal fields need a tree keyword argument')
         LinesField.__init__(self, name, **kwargs)
+        if not self.tree:
+            raise KeyError('Arboreal fields need a tree argument')
     
     security.declarePrivate('set')
     def set(self, instance, value, **kwargs):
@@ -97,9 +97,9 @@ class SingleArborealField(ArborealField, StringField):
 
     def __init__(self, name, **kwargs):
         """Make sure we get a tree name."""
-        if not kwargs.has_key('tree'):
-            raise KeyError('Arboreal fields need a tree keyword argument')
         StringField.__init__(self, name, **kwargs)
+        if not self.tree:
+            raise KeyError('Arboreal fields need a tree argument')
 
 class ArborealLabledField(ObjectField, ArborealField):
     _properties = ObjectField._properties.copy()
@@ -112,10 +112,9 @@ class ArborealLabledField(ObjectField, ArborealField):
 
     def __init__(self, name=None, **kwargs):
         """Make sure we get a tree name."""
-        if not kwargs.has_key('tree'):
-            raise KeyError('ArborealLabled fields need a tree keyword argument')
         ObjectField.__init__(self, name, **kwargs)
-
+        if not self.tree:
+            raise KeyError('Arboreal fields need a tree argument')
 
     security.declarePrivate('get')
     def get(self, instance, **kwargs):
