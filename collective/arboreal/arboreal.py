@@ -26,11 +26,12 @@ class Arboreal(UniqueObject, BTreeFolder2):
         """Add a tree node."""
         self._setOb(id, TreeManager(id))
         
+    security.declareProtected(ManageProperties, 'delTree')
     def delTree(self, id):
         """ Delete a tree node. """
         self._delObject(id)
 
-
+    security.declarePrivate('getTree')
     def getTree(self, id):
         """Return a contained tree, if the id does not exists create it."""
         tree = self.get(id)
@@ -45,10 +46,12 @@ class Arboreal(UniqueObject, BTreeFolder2):
         " Get a list of the names of the toplevel trees "
         return [tree for tree in self.objectIds()]
     
+    security.declarePrivate('getLabel')
     def getLabel(self, tree, path):
         """Return the label for the specific node at path within tree."""
         return self.getTree(tree).getNodeAtPath(path).Title()
 
+    security.declarePrivate('getPathsWithName')
     def getPathsWithName(self, tree, name):
         """Return all node paths which match the given name."""
         return self.getTree(tree).getPathsWithName(name)

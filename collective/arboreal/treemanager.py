@@ -17,7 +17,7 @@ class TreeManager(Node):
         return self.buildTreeList([], '', self)
     
 
-    security.declareProtected(ManageProperties, 'buildDisplayList')
+    security.declareProtected(ManageProperties, 'buildTreeList')
     def buildTreeList(self, treeList, path, node):
         """Append the children of node to the displaylist as subnodes of path."""
         for (i, child) in node.objectItems():
@@ -35,6 +35,7 @@ class TreeManager(Node):
         else:
             return self.getNodeAtPath(path).addChild(name)
             
+    security.declarePrivate('getNodeAtPath')
     def getNodeAtPath(self, path):
         """Return the node at path."""
         nodeIds = path.split("/")[1:]
@@ -48,11 +49,13 @@ class TreeManager(Node):
         """Return the absolute url for this tree."""
         return self.absolute_url()
             
+    security.declarePrivate('getPathsWithName')
     def getPathsWithName(self, name):
         """Return the paths which match the given name."""
         return [node['path'] for node in self.getTreeList() if
                 node['name']==name]
 
+    security.declarePrivate('searchForPaths')
     def searchForPaths(self, query):
         query = query.lower()
         results = []
