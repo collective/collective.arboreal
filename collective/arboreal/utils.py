@@ -7,8 +7,9 @@ def UnicodeToUtf8(unicodestr):
 
 class ArborealExporter(object):
     
-    def __init__(self, arboreal):
+    def __init__(self, arboreal, path='arboreal.xml'):
         self.arboreal = arboreal
+        self.path = path
 
     def _exportTreeMgrToXML(self, node, xml_node):
         """Helper method, to be called recursively on treemanager nodes """
@@ -24,13 +25,14 @@ class ArborealExporter(object):
             tm_node = ET.SubElement(root, 'treemanager', id=id, title=tm.Title().decode('utf-8').encode('Latin'))
             self._exportTreeMgrToXML(tm, tm_node)
         tree = ET.ElementTree(root)
-        tree.write("arboreal.xml",encoding='Latin')
-        return 'arboreal.xml written'
+        tree.write(self.path, encoding='Latin')
+        return '%s written' % self.path
 
 class ArborealImporter(object):
 
-    def __init__(self, arboreal):
+    def __init__(self, arboreal, path='arboreal.xml'):
         self.arboreal = arboreal
+        self.path = path
 
 
     def _importTreeMgrFromXML(self, xml_node, node, preserve_ids=True):
@@ -43,14 +45,14 @@ class ArborealImporter(object):
             self._importTreeMgrFromXML(xml_sub_node, sub_node)
 
     def importFromXML(self, preserve_ids=True):
-        """Import from xml file arboreal.xml """
-        tree = ET.parse('arboreal.xml')
+        """Import from xml file"""
+        tree = ET.parse(self.path)
         root = tree.getroot()
         tm_nodes = root.findall('treemanager')
         for tm_node in tm_nodes:
             tm = self.arboreal.getTree(tm_node.get('id'))
             self._importTreeMgrFromXML(tm_node, tm)
-        return 'arboreal.xml imported'
+        return '%s imported' % self.path
 
 
 
