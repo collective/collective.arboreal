@@ -1,0 +1,10 @@
+Change History
+==============
+
+1.0 (unreleased)
+----------------
+
+- Initial import to the collective
+  [jvloothuis, jjmurre]
+- Converted to an egg, renamed to collective.arboreal, updated to Z3 tech
+  [mj]

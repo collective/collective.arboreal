@@ -1,12 +1,20 @@
+import os
 from setuptools import setup, find_packages
 
 version = '1.0'
 
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    
+long_description = '\n'.join((
+    read('README.txt'),
+    read('CHANGES.txt')
+))
+
 setup(name='collective.arboreal',
       version=version,
       description="Arboreal is a tool which lets you manage multiple trees.",
-      long_description="""\
-""",
+      long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
