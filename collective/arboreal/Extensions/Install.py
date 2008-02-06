@@ -9,7 +9,7 @@ from Products.Archetypes.Extensions.utils import installTypes
 from StringIO import StringIO
 import sys
 
-from Products.Arboreal.config import *
+from collective.arboreal.config import *
 
 def installCollapsibleTreeCSS(self, out):
     csstool = getToolByName(self, 'portal_css')
@@ -40,7 +40,7 @@ def install(self):
     
     
     try:
-        portal.manage_addProduct["Arboreal"].manage_addTool(TOOL_META)
+        portal.manage_addProduct["collective.arboreal"].manage_addTool(TOOL_META)
     except:
         # heuristics for testing if an instance with the same name already exists
         # only this error will be swallowed.
