@@ -7,7 +7,7 @@ class MultiTreeSelectionWidget(MultiSelectionWidget):
     _properties = MultiSelectionWidget._properties.copy()
     _properties.update({
         'macro':'abr_multiselection_widget',
-        'format':'checkbox',
+        'format':'checkbox', # One of checkbox, select, collapsed or finder
         })
 
     security = ClassSecurityInfo()
@@ -26,9 +26,9 @@ class TreeSelectionWidget(SelectionWidget):
 
     security = ClassSecurityInfo()
     
-registerWidget(MultiTreeSelectionWidget,
-               title='Multi Tree Selection',
-               description=('Selection widget that allows you to select multiple items from an Arboreal tree.'),
+registerWidget(TreeSelectionWidget,
+               title='Tree Selection',
+               description=('Selection widget that allows you to select one item from an Arboreal tree.'),
                used_for=('Products.Arboreal.field.SingleArborealField',)
                )
 
