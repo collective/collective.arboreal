@@ -1,11 +1,8 @@
 from Products.CMFCore.utils import ToolInit
-from Products.Arboreal.arboreal import Arboreal
 from Products.CMFCore import utils, permissions, DirectoryView
 
-from Products.Arboreal.config import *
-
-DirectoryView.registerDirectory('skins', GLOBALS)
-DirectoryView.registerDirectory('skins/arboreal', GLOBALS)
+from collective.arboreal.arboreal import Arboreal
+from collective.arboreal.config import *
 
 
 def initialize(context):
@@ -14,7 +11,7 @@ def initialize(context):
                    tools=[Arboreal],
                    icon='arboreal.gif').initialize( context )
     
-    # cImport the multipath index so it is registered
+    # Import the multipath index so it is registered
     import index
     import arborealselection 
     context.registerClass(index.MultiPathIndex,
