@@ -22,6 +22,8 @@ make this a reality Arboreal has its own widget and field types.
 
 An example of configuring a field within a schema is given below.
 
+::
+
     MultiArborealField('groups',
         tree='tree_group_id',
         storeCompletePath = True,
