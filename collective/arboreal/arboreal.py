@@ -1,17 +1,19 @@
+from zope.interfaces import implements
+
 from AccessControl import ClassSecurityInfo
 from config import ManageProperties
 from Globals import InitializeClass
 from Products.Archetypes.utils import DisplayList
 from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
 from Products.CMFCore.utils import UniqueObject
-from Products.CMFPlone.interfaces.NonStructuralFolder import INonStructuralFolder
+from Products.CMFPlone.interfaces import INonStructuralFolder
 from treemanager import TreeManager
 
 class Arboreal(UniqueObject, BTreeFolder2):
     id = 'portal_arboreal'
     meta_type = 'Arboreal'
     
-    __implements__ = (INonStructuralFolder,)
+    implements(INonStructuralFolder)
     
     
     security = ClassSecurityInfo()
