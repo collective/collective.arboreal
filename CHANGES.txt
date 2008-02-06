@@ -6,5 +6,6 @@ Change History
 
 - Initial import to the collective
   [jvloothuis, jjmurre]
-- Converted to an egg, renamed to collective.arboreal, updated to Z3 tech
+- Converted to an egg, renamed to collective.arboreal, updated to Z3 tech,
+  replaced Install.py with a GS profile.
   [mj]

@@ -10,7 +10,7 @@ fields.
 Installation
 ============
 
-The tool comes with a quickinstaller script. Therefore you can just install it
+The tool comes with a GenericSetup profile. Therefore you can just install it
 by going to the portal setup system. It will create a configlet which you can 
 access via the same portal setup.
 
