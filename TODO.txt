@@ -2,3 +2,4 @@ TODO items
 ==========
 
 - Convert proprietary xml import/export code to a GS step
+- Provide better i18n support
