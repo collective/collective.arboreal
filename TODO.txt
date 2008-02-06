@@ -3,3 +3,4 @@ TODO items
 
 - Convert proprietary xml import/export code to a GS step
 - Provide better i18n support
+- Convert tree management skin methods to a view
