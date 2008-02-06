@@ -2,7 +2,7 @@
 Arboreal
 ========
 
-Arboreal is a tool which lets you manage a multiple trees. These trees are 
+Arboreal is a tool which lets you manage multiple trees. These trees are 
 stored within the portal. They can be used in Archetypes as a vocabulary for
 fields.
 
@@ -17,7 +17,7 @@ access via the same portal setup.
 Integration with Archetypes
 ===========================
 
-The primary usage for Arboreal is to use it for hiararchical vocabularies. To
+The primary usage for Arboreal is to use it for hierarchical vocabularies. To
 make this a reality Arboreal has its own widget and field types.
 
 An example of configuring a field within a schema is given below.
@@ -39,7 +39,7 @@ Arboreal will create it automatically when it does not exist. The
 MultiTreeSelectionWidget is basically a multi selection widget which indents
 the tree nodes using spaces. This gives the visual appearance of a tree. And
 lastly we have the MultiArborealField. With this field you can get a list of
-all paths stored. The storeCompletePath keyword toggels parent storage. It is
+all paths stored. The storeCompletePath keyword toggles parent storage. It is
 set to False by default. Parent storage works as follows.
 
 Say you have a tree like given below:
@@ -62,7 +62,7 @@ storeCompletePath = True
 
 path = [Node/Subnode, Node]
 
-Storing the full path is usefull for when you want to use the path as a
+Storing the full path is useful for when you want to use the path as a
 filtering mechanism. You can then easily do a catalog query on a keyword index
 for a specific path. The reason we are not just using a path index is that you
 can select multiple points in the tree.
