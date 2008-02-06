@@ -42,7 +42,7 @@ class ArborealImporter(object):
             id = preserve_ids and xml_sub_node.get('id') or None
             sub_node_id = node.addChild(UnicodeToUtf8(xml_sub_node.get('title', u'no title')), id)
             sub_node = node[sub_node_id]
-            self._importTreeMgrFromXML(xml_sub_node, sub_node)
+            self._importTreeMgrFromXML(xml_sub_node, sub_node, preserve_ids)
 
     def importFromXML(self, preserve_ids=True):
         """Import from xml file"""
@@ -51,7 +51,7 @@ class ArborealImporter(object):
         tm_nodes = root.findall('treemanager')
         for tm_node in tm_nodes:
             tm = self.arboreal.getTree(tm_node.get('id'))
-            self._importTreeMgrFromXML(tm_node, tm)
+            self._importTreeMgrFromXML(tm_node, tm, preserve_ids)
         return '%s imported' % self.path
 
 
