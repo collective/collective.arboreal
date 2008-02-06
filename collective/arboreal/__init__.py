@@ -1,5 +1,4 @@
-from Products.CMFCore.utils import ToolInit
-from Products.CMFCore import utils, permissions, DirectoryView
+from Products.CMFCore import utils
 
 from collective.arboreal.arboreal import Arboreal
 from collective.arboreal.config import *
