@@ -1,7 +1,6 @@
 TODO items
 ==========
 
-- Make arboreal use unicode for titles internally
 - Convert proprietary xml import/export code to a GS step
 - Provide better i18n support
 - Convert tree management skin methods to a view
