@@ -10,12 +10,6 @@ from Products.PluginIndexes.PathIndex.PathIndex import PathIndex
 
 from config import GLOBALS
 
-# Prefer py2.4 set over sets module; makes things work in py 2.3
-try:
-    set
-except NameError:
-    from sets import Set as set
-
 _marker = []
 
 class MultiPathIndex(PathIndex):
@@ -132,11 +126,8 @@ class MultiPathIndex(PathIndex):
         """ return names of indexed attributes """
         return getattr(self, 'indexed_attrs', [self.id])
 
-    # In zope 2.8.4 and earlier, PathIndex redefined manage_workspace
-    try:
-        manage = manage_main = PathIndex.manage_main
-    except AttributeError:
-        manage = manage_main = PathIndex.manage_workspace
+
+    manage = manage_main = PathIndex.manage_main
     manage_main._setName('manage_main')
     
 
