@@ -1,10 +1,5 @@
 import elementtree.ElementTree as ET
 
-def UnicodeToUtf8(unicodestr):
-    """There seems to be a bug in ElementTree, findall converts everything to unicode, so we need this trick to make it utf-8."""
-    lu = list(unicodestr)
-    return ''.join([c.encode('utf-8') for c in lu])
-
 class ArborealExporter(object):
     
     def __init__(self, arboreal, path='arboreal.xml'):
@@ -22,10 +17,10 @@ class ArborealExporter(object):
 
         root = ET.Element('arboreal')
         for id, tm in self.arboreal.objectItems():
-            tm_node = ET.SubElement(root, 'treemanager', id=id, title=tm.Title().decode('utf-8').encode('Latin'))
+            tm_node = ET.SubElement(root, 'treemanager', id=id, title=tm.Title())
             self._exportTreeMgrToXML(tm, tm_node)
         tree = ET.ElementTree(root)
-        tree.write(self.path, encoding='Latin')
+        tree.write(self.path, encoding='utf-8')
         return '%s written' % self.path
 
 class ArborealImporter(object):
@@ -40,7 +35,7 @@ class ArborealImporter(object):
         xml_sub_nodes = xml_node.findall('arborealnode')
         for xml_sub_node in xml_sub_nodes:
             id = preserve_ids and xml_sub_node.get('id') or None
-            sub_node_id = node.addChild(UnicodeToUtf8(xml_sub_node.get('title', u'no title')), id)
+            sub_node_id = node.addChild(xml_sub_node.get('title', u'no title'), id)
             sub_node = node[sub_node_id]
             self._importTreeMgrFromXML(xml_sub_node, sub_node, preserve_ids)
 
