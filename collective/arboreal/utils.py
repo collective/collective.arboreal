@@ -9,7 +9,7 @@ class ArborealExporter(object):
     def _exportTreeMgrToXML(self, node, xml_node):
         """Helper method, to be called recursively on treemanager nodes """
         for (id, child) in node.objectItems():
-            xml_sub_node = ET.SubElement(xml_node, 'arborealnode', id=id, title=child.Title().decode('utf-8').encode('Latin'))
+            xml_sub_node = ET.SubElement(xml_node, 'arborealnode', id=id, title=child.Title())
             self._exportTreeMgrToXML(child, xml_sub_node)
         
     def exportToXML(self):

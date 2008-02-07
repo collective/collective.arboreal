@@ -1,4 +1,9 @@
+from zope.component import getUtility
+
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+
 from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
+from Products.CMFCore.utils import getToolByName
 
 from AccessControl import ClassSecurityInfo
 
@@ -29,13 +34,23 @@ class Node(OrderedFolder):
     security.declareProtected(ManageProperties, 'setTitle')
     def setTitle(self, title):
         """Set the title."""
+        if not isinstance(title, unicode):
+            title = title.decode(self._getCharset())
         self.title = title
     
     security.declareProtected(ManageProperties, 'addChild')
     def addChild(self, name, id=None):
         """Create a subnode of this node."""
+        if not isinstance(name, unicode):
+            name = name.decode(self._getCharset())
+            
         if not id:
-            id = self.generateUniqueId()
+            # Generate a unique id based on the name of the node
+            id = base = getUtility(IURLNormalizer).normalize(name)
+            count = 1
+            while id in self.objectIds():
+                id = '%s-%d' % (base, count)
+                count += 1
         node = Node(id)
         node.title = name
         self._setObject(id, node)
@@ -51,5 +66,11 @@ class Node(OrderedFolder):
             current = current.aq_parent
         path.reverse()
         return '/'+'/'.join(path)
-        
 
+    def _getCharset(self):
+        properties = getToolByName(self, 'portal_properties', None)
+        if properties is not None:
+            site_properties = getattr(properties, 'site_properties', None)
+            if site_properties is not None:
+                return site_properties.getProperty('default_charset')
+        return 'utf-8'       

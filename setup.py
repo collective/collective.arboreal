@@ -35,6 +35,7 @@ setup(name='collective.arboreal',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'plone.i18n'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
