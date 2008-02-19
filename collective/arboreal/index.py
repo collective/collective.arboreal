@@ -1,8 +1,8 @@
+from logging import getLogger
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from BTrees.IIBTree import IISet, intersection, union
 from BTrees.OOBTree import OOBTree
 from BTrees.OIBTree import OIBTree
-from zLOG import LOG, ERROR
 
 from Products.PluginIndexes.common.util import parseIndexRequest
 from Products.PluginIndexes.common import safe_callable
@@ -11,6 +11,7 @@ from Products.PluginIndexes.PathIndex.PathIndex import PathIndex
 from config import GLOBALS
 
 _marker = []
+LOG = getLogger('collective.arboreal.MultiPathIndex')
 
 class MultiPathIndex(PathIndex):
     """ A path index stores multiple paths (/-separated strings) efficiently.
@@ -78,9 +79,9 @@ class MultiPathIndex(PathIndex):
 
         for path in paths:
             if not hasattr(path, 'split'):
-                LOG(self.__class__.__name__, ERROR,
-                    'Error indexing path: %r at index: %s at object: %s'%(
-                    path, self.getId(), '/'.join(obj.getPhysicalPath())))
+                LOG.error(
+                    'Error indexing path: %r at index: %s at object: %s',
+                    path, self.getId(), '/'.join(obj.getPhysicalPath()))
                 continue
             comps = filter(None, path.split('/'))
             for i, comp in enumerate(comps):
@@ -93,9 +94,8 @@ class MultiPathIndex(PathIndex):
     def unindex_object(self, docid):
         """ hook for (Z)Catalog """
         if not self._unindex.has_key(docid):
-            LOG(self.__class__.__name__, ERROR,
-                'Attempt to unindex nonexistent document'
-                ' with id %s' % docid)
+            LOG.debug(
+                'Attempt to unindex nonexistent document with id %s', docid)
             return
 
         def unindex(comp, level, docid=docid):
@@ -106,9 +106,8 @@ class MultiPathIndex(PathIndex):
                 if not self._index[comp]:
                     del self._index[comp]
             except KeyError:
-                LOG(self.__class__.__name__, ERROR,
-                    'Attempt to unindex document'
-                    ' with id %s failed' % docid)
+                LOG.debug(
+                    'Attempt to unindex document with id %s failed', docid)
 
         paths = self._unindex[docid]
         for path in paths:
