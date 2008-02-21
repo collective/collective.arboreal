@@ -28,12 +28,12 @@ class TreeManager(Node):
         return treeList
     
     security.declareProtected(ManageProperties, 'addNodeAtPath')
-    def addNodeAtPath(self, name, path):
+    def addNodeAtPath(self, name, path, id=None):
         """Create a node at the specified path."""
         if not path:
-            return self.addChild(name)
+            return self.addChild(name, id)
         else:
-            return self.getNodeAtPath(path).addChild(name)
+            return self.getNodeAtPath(path).addChild(name, id)
             
     security.declarePrivate('getNodeAtPath')
     def getNodeAtPath(self, path):
