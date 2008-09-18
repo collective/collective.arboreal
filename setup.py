@@ -15,10 +15,8 @@ setup(name='collective.arboreal',
       version=version,
       description="Arboreal is a tool which lets you manage multiple trees.",
       long_description=long_description,
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
-        "Framework :: Zope2",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
@@ -36,9 +34,5 @@ setup(name='collective.arboreal',
       install_requires=[
           'setuptools',
           'plone.i18n'
-          # -*- Extra requirements: -*-
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
