@@ -28,8 +28,7 @@
                               inputname fieldName;
                               formname string:edit_form;
                               inputvalue python:test(value!='None', value, '');">
-            <select tal:attributes="name string:${fieldName}_lable;
-                                    tabindex tabindex/next;">
+            <select tal:attributes="name string:${fieldName}_lable;">
 
                   <option tal:repeat="item treeList"
                     tal:attributes="value item/path;

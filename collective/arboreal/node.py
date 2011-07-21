@@ -1,3 +1,4 @@
+from Acquisition import aq_parent, aq_inner
 from AccessControl import ClassSecurityInfo
 from OFS.interfaces import IOrderedContainer
 from OFS.OrderedFolder import OrderedFolder
@@ -16,6 +17,16 @@ class Node(OrderedFolder):
     implements(INonStructuralFolder, IOrderedContainer)
     meta_type = 'ArborealNode'
     security = ClassSecurityInfo()
+
+    security.declareProtected(ManageProperties, 'setId')
+    def setId(self, new_id):
+        if new_id != self.getId():
+            parent = aq_parent(aq_inner(self))
+            old_id = self.getId()
+            ob = parent[old_id]
+            parent._delObject(old_id)
+            ob._setId(new_id)
+            parent._setObject(new_id, ob, set_owner=0)
 
     security.declarePublic("Title")
     def Title(self):

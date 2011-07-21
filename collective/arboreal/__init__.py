@@ -9,7 +9,7 @@ def initialize(context):
     utils.ToolInit(TOOL_NAME,
                    tools=[Arboreal],
                    icon='arboreal.gif').initialize( context )
-    
+
     # Import the multipath index so it is registered
     import index
     import arborealselection 

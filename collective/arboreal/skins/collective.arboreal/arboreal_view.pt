@@ -9,10 +9,11 @@
 <body>
 
 <div metal:fill-slot="prefs_configlet_main"
-     tal:define="tool nocall:portal/portal_arboreal">
-     
+     tal:define="tool nocall:context/portal_arboreal;
+                 here_url context/@@plone_context_state/object_url;">
+
     <h1 i18n:translate="heading_arboreal">Arboreal</h1>
-         
+
     <a href=""
        class="link-parent"
        tal:attributes="href string: $portal_url/plone_control_panel"
@@ -31,16 +32,16 @@
 
     <label for="name">ID</label>
     <input type="text" id="id" name="id"/>
-    
-    <!--input type="submit" value="Add" name="abr_add_tree:method"/--> 
-    <input type="submit" value="Delete" name="abr_delete_tree:method" 
+
+    <input type="submit" value="Add" name="abr_add_tree:method" />
+    <input type="submit" value="Delete" name="abr_delete_tree:method"
            i18n:attributes="value"/>
   </fieldset>
 </form>
 
 <ul>
   <li tal:repeat="item context/objectValues">
-    <a tal:attributes="href string:${item/absolute_url}/abr_tree_view" 
+    <a tal:attributes="href string:${item/absolute_url}/abr_tree_view"
        tal:content="item/getId"
        i18n:translate=""/>
   </li>
