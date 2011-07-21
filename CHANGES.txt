@@ -1,7 +1,7 @@
 Change History
 ==============
 
-2.0 - unreleased
+2.0 - 2011-07-21
 ----------------
 
 - Add a new `storeOnlyLeaves` option on the field.
