@@ -99,6 +99,22 @@ class MultiArborealField(ArborealField, LinesField):
             value = tuple(value)
         ObjectField.set(self, instance, value, **kwargs)
 
+    def treeList(self, content_instance):
+        tree = self.getTree(content_instance).getTreeList()
+        if self.storeOnlyLeaves:
+            value = self.get(content_instance)
+            for t in tree:
+                leave = t['path'].split('/')[-1]
+                if leave in value:
+                    t['selected'] = True
+                else:
+                    t['selected'] = False
+        else:
+            for t in tree:
+                t['selected'] = True
+        return tree
+
+
 class SingleArborealField(ArborealField, StringField):
     _properties = StringField._properties.copy()
     del _properties['vocabulary']

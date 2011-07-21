@@ -41,8 +41,9 @@
                                   size widget/size;">
               <option selected=""
                       tal:repeat="item treeList"
+                      tal:define="selected item/selected|nothing"
                       tal:attributes="value item/path;
-                                      selected python:test(item['path'] in value, 'selected', None);">
+                                      selected python:selected and 'selected' or None;">
                 <tal:block repeat="i python:item['path'].split('/')[1:]">&nbsp;</tal:block>
                 <tal:block content="item/name"/>
               </option>
@@ -50,15 +51,16 @@
 
           <tal:block condition="python:format=='checkbox'"
             tal:define="children python:field.getTree(context).objectValues();
-              current_path string:">
+                        current_path string:">
             <ul metal:define-macro="edittree">
               <li tal:repeat="node children" style="list-style: none">
                 <tal:block define="current_path string:${current_path}/${node/id}">
-                  <div>
-                    <input type="checkbox" 
-                      tal:attributes="value current_path; 
-                        name string:${fieldName}:list;
-                        checked python:current_path in value"/>
+                  <div tal:define="storeOnlyLeaves field/storeOnlyLeaves|nothing;
+                                   checked python:storeOnlyLeaves and (current_path.split('/')[-1] in value) or current_path in value;">
+                    <input type="checkbox"
+                           tal:attributes="value current_path; 
+                                           name string:${fieldName}:list;
+                                           checked python:checked;"/>
                     <span tal:replace="node/Title"/>
                   </div>
                   <tal:block define="children node/objectValues">
