@@ -55,9 +55,9 @@
                         current_path string:">
             <ul metal:define-macro="edittree">
               <li tal:repeat="node children" style="list-style: none">
-                <tal:block define="current_path string:${current_path}/${node/id}">
-                  <div tal:define="leave current_path.split('/')[-1];
-                                   checked python:storeOnlyLeaves and (leave in value) or current_path in value;">
+                <tal:block define="node_id node/getId;
+                                   current_path string:${current_path}/${node_id}">
+                  <div tal:define="checked python:storeOnlyLeaves and (node_id in value) or current_path in value;">
                     <input type="checkbox"
                            tal:attributes="value current_path;
                                            name string:${fieldName}:list;
@@ -75,7 +75,7 @@
 
           <tal:block condition="python:format=='collapsed'"
             tal:define="children python:field.getTree(context).objectValues();
-              current_path string:">
+                        current_path string:">
                 <ul metal:define-macro="edittree_collapsed" 
                     tal:define="is_sub is_sub|nothing" 
                     tal:attributes="class python:not is_sub and 'tree' or None">
