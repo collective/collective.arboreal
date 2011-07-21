@@ -1,31 +1,22 @@
-from zope.component import getUtility
-
-from plone.i18n.normalizer.interfaces import IURLNormalizer
-
-from Products.BTreeFolder2.BTreeFolder2 import BTreeFolder2
-from Products.CMFCore.utils import getToolByName
-
 from AccessControl import ClassSecurityInfo
-
-from Globals import InitializeClass
-from BTrees.IOBTree import IOBTree
+from OFS.interfaces import IOrderedContainer
+from OFS.OrderedFolder import OrderedFolder
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import INonStructuralFolder
+from zope.component import getUtility
+from zope.interface import implements
 
 from config import ManageProperties
 
-from Products.CMFPlone.interfaces.NonStructuralFolder import INonStructuralFolder
-
-from OFS.OrderedFolder import OrderedFolder
-from OFS.IOrderSupport import IOrderedContainer
 
 class Node(OrderedFolder):
-    """A node in a tree.
+    """A node in a tree. The node can contain its children"""
 
-    The node can contain its children"""
+    implements(INonStructuralFolder, IOrderedContainer)
     meta_type = 'ArborealNode'
-    __implements__ = (INonStructuralFolder, IOrderedContainer)
-    
     security = ClassSecurityInfo()
-    
+
     security.declarePublic("Title")
     def Title(self):
         """Return the node name."""

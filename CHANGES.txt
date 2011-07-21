@@ -4,6 +4,9 @@ Change History
 2.0 - unreleased
 ----------------
 
+- Adjust imports to match Plone 4 locations, avoid `__implements__`.
+  [hannosch]
+
 - Add z3c.autoinclude entry point.
   [hannosch]
 

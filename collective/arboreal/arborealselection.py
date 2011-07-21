@@ -1,31 +1,20 @@
-""" Topic:
-
-"""
-
-__author__  = 'Jan Murre'
-__docformat__ = 'restructuredtext'
-
-from Products.CMFCore.permissions import View
-from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
-
-from Products.Archetypes.public import Schema
-from Products.Archetypes.public import LinesField
-from Products.Archetypes.public import StringField
-from Products.Archetypes.public import MultiSelectionWidget
-from Products.Archetypes.public import DisplayList
-from Products.Archetypes.public import SelectionWidget
-
 from Products.ATContentTypes.criteria import registerCriterion
-from Products.ATContentTypes.criteria import LIST_INDICES
 from Products.ATContentTypes.interfaces import IATTopicSearchCriterion
 from Products.ATContentTypes.permission import ChangeTopics
 from Products.ATContentTypes.criteria.base import ATBaseCriterion
 from Products.ATContentTypes.criteria.schemata import ATBaseCriterionSchema
+from Products.Archetypes.public import Schema
+from Products.Archetypes.public import StringField
+from Products.Archetypes.public import DisplayList
+from Products.Archetypes.public import SelectionWidget
+from Products.CMFCore.permissions import View
+from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
-from public import *
+from collective.arboreal.public import MultiArborealField
+from collective.arboreal.public import MultiTreeSelectionWidget
 
-from types import StringType
 
 ATArborealSelectionCriterionSchema = ATBaseCriterionSchema + Schema((
 
@@ -76,16 +65,14 @@ ATArborealSelectionCriterionSchema = ATBaseCriterionSchema + Schema((
 class ATArborealSelectionCriterion(ATBaseCriterion):
     """A selection criterion"""
 
-    __implements__ = ATBaseCriterion.__implements__ + (IATTopicSearchCriterion, )
-    security       = ClassSecurityInfo()
-    schema         = ATArborealSelectionCriterionSchema
-    meta_type      = 'ATArborealSelectionCriterion'
+    implements(IATTopicSearchCriterion)
+
+    security = ClassSecurityInfo()
+    schema = ATArborealSelectionCriterionSchema
+    meta_type = 'ATArborealSelectionCriterion'
     archetype_name = 'ArborealSelection Criterion'
-    typeDescription= ''
-    typeDescMsgId  = ''
-
     shortDesc      = 'Select values from list'
-
+    typeDescription= ''
 
     security.declareProtected(View, 'getCriteriaItems')
     def getCriteriaItems(self):
