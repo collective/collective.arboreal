@@ -26,4 +26,8 @@ setup(name='collective.arboreal',
           'setuptools',
           'plone.i18n'
       ],
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )

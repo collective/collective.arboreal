@@ -4,6 +4,9 @@ Change History
 2.0 - unreleased
 ----------------
 
+- Add z3c.autoinclude entry point.
+  [hannosch]
+
 - Update GS profile to Plone 4-style.
   [hannosch]
 
