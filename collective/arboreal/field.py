@@ -42,15 +42,16 @@ class ArborealField(Base):
             tree  = self.tree
         return self._getArboreal(content_instance).getTree(tree)
 
-        
+
 class MultiArborealField(ArborealField, LinesField):
     _properties = LinesField._properties.copy()
     _properties.update({
         'storeCompletePath': False,
+        'storeOnlyLeaves': False,
         'tree': ''
     })
     del _properties['vocabulary']
-        
+
     security = ClassSecurityInfo()
 
     def __init__(self, name, **kwargs):
@@ -58,15 +59,15 @@ class MultiArborealField(ArborealField, LinesField):
         LinesField.__init__(self, name, **kwargs)
         if not self.tree:
             raise KeyError('Arboreal fields need a tree argument')
-    
+
     security.declarePrivate('set')
     def set(self, instance, value, **kwargs):
         """
         If passed-in value is a string, split at line breaks and
         remove leading and trailing white space before storing in object
         with rest of properties.
-        
-        When 'storeCompletePath' is set the field will store all parent path 
+
+        When 'storeCompletePath' is set the field will store all parent path
         segements.
         """
         __traceback_info__ = value, type(value)
@@ -74,7 +75,7 @@ class MultiArborealField(ArborealField, LinesField):
             value =  value.split('\n')
         value = [decode(v.strip(), instance, **kwargs)
                  for v in value if v and v.strip()]
-        
+
         # Expand tree
         if self.storeCompletePath:
             pathDict = dict([(item, True) for item in value])
@@ -85,12 +86,19 @@ class MultiArborealField(ArborealField, LinesField):
                     currentPath = "/".join([currentPath, path])
                     pathDict[currentPath] = True
             value = [item[1:] for item in pathDict.keys() if item[1:]] # Strip of leading .
-        
-        
+
+        if self.storeOnlyLeaves:
+            result = set()
+            for v in value:
+                if '/' in v:
+                    v = v.split('/')[-1]
+                result.add(v)
+            value = list(result)
+
         if config.ZOPE_LINES_IS_TUPLE_TYPE:
             value = tuple(value)
         ObjectField.set(self, instance, value, **kwargs)
-        
+
 class SingleArborealField(ArborealField, StringField):
     _properties = StringField._properties.copy()
     del _properties['vocabulary']

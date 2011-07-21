@@ -4,6 +4,9 @@ Change History
 2.0 - unreleased
 ----------------
 
+- Add a new `storeOnlyLeaves` option on the field.
+  [hannosch]
+
 - Adjust some templates for Plone 4 compatibility and allow renaming of nodes.
   [hannosch]
 
