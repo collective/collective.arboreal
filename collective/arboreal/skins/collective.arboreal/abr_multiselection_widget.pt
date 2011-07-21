@@ -9,10 +9,10 @@
     <!-- Selection Widgets -->
 
     <metal:view_macro define-macro="view"
-		      tal:define="values python:accessor()">
+                      tal:define="values python:accessor()">
       <ul>
-	<li tal:repeat="path values">
-	  <span tal:repeat="value python:context.abr_get_path_segments(path)">
+        <li tal:repeat="path values">
+          <span tal:repeat="value python:context.abr_get_path_segments(path)">
            <div tal:on-error="string:"> 
              <span tal:content="python:field.displayName(context, value)"/>
              <span class="breadcrumbSeparator" tal:condition="not:repeat/value/end"> &rarr; </span>
@@ -28,26 +28,26 @@
           fill-slot="widget_body"
           tal:define="format python:test(widget.format, widget.format,'select')">
 
-		<input type="hidden"
-			   value=""
-			   tal:condition="not:field/required|nothing"
-			   tal:attributes="name string:$fieldName:default:list;" />
-		  
-	  <select multiple="multiple"
+          <input type="hidden"
+                 value=""
+                 tal:condition="not:field/required|nothing"
+                 tal:attributes="name string:$fieldName:default:list;" />
+
+          <select multiple="multiple"
                   tal:define="treeList python:field.treeList(context)"
-		  tal:condition="python:format=='select'"
-		  tal:attributes="name string:${fieldName}:list;
-		  id fieldName;
-		  size widget/size;
-		  tabindex tabindex/next;">
-	    <option selected=""
-		    tal:repeat="item treeList"
-                    tal:attributes="value item/path;
-		    selected python:test(item['path'] in value, 'selected', None);">
-		    <tal:block repeat="i python:item['path'].split('/')[1:]">&nbsp;</tal:block>
-                    <tal:block content="item/name"/>
-	    </option>
-	  </select>
+                  tal:condition="python:format=='select'"
+                  tal:attributes="name string:${fieldName}:list;
+                                  id fieldName;
+                                  size widget/size;">
+              <option selected=""
+                      tal:repeat="item treeList"
+                      tal:attributes="value item/path;
+                                      selected python:test(item['path'] in value, 'selected', None);">
+                <tal:block repeat="i python:item['path'].split('/')[1:]">&nbsp;</tal:block>
+                <tal:block content="item/name"/>
+              </option>
+          </select>
+
           <tal:block condition="python:format=='checkbox'"
             tal:define="children python:field.getTree(context).objectValues();
               current_path string:">
@@ -96,7 +96,6 @@
                 </ul>
           </tal:block>
 
-
           <tal:block condition="python:format=='finder'"
             tal:define="children python:field.getTree(context).objectValues();
               current_path string:">
@@ -125,7 +124,7 @@
                     </ul>
                 </div>
           </tal:block>
-	</metal:fill>
+        </metal:fill>
       </metal:use>
     </metal:define>
 
@@ -139,13 +138,9 @@
              tal:define="value python:accessor()"
              name=""
              value=""
-             tabindex="#"
              tal:attributes="name fieldName;
-                             value python:'\n'.join(value);
-                             tabindex tabindex/next;" />
+                             value python:'\n'.join(value);" />
     </metal:hidden_macro>
-
 
   </body>
 </html>
-
