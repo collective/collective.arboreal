@@ -6,9 +6,9 @@
       appId="collective.arboreal"
       category="Products"
       condition_expr=""
+      icon_expr="string:$portal_url/arboreal_icon.gif"
       url_expr="string:$portal_url/portal_arboreal/arboreal_view"
-      visible="True"
-      >
+      visible="True">
     <permission>Manage portal</permission>
   </configlet>
 </object>
