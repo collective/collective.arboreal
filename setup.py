@@ -1,26 +1,17 @@
-import os
 from setuptools import setup, find_packages
 
-version = '1.0.1'
-
-def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
-    
-long_description = '\n'.join((
-    read('README.txt'),
-    read('CHANGES.txt')
-))
+version = '2.0'
 
 setup(name='collective.arboreal',
       version=version,
       description="Arboreal is a tool which lets you manage multiple trees.",
-      long_description=long_description,
+      long_description=open("README.txt").read() + "\n" +
+                       open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='archetypes trees field widget index',
       author='Pareto',
