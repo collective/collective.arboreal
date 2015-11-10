@@ -3,7 +3,8 @@ Change History
 
 2.0.1 - unreleased
 ------------------
-
+ - Make widgets not render their own labels, so ArcheTypes does it for them 
+  [puittenbroek]
 
 2.0 - 2011-07-21
 ----------------
